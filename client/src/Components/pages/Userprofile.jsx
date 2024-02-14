@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import Context from "../Context.jsx";
-import { Container, Table, Row, Col, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+// import React, { useState, useEffect, useContext } from "react";
+// import Context from "../Context.jsx";
+// import { Container, Table, Row, Col, Button } from "react-bootstrap";
+// import { Link, useNavigate } from "react-router-dom";
+// import * as Yup from "yup";
 
 function ProfileDetails() {
 //   const { user, setUser } = useContext(Context);

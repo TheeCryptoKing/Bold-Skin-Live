@@ -1,9 +1,9 @@
-import React from "react";
-import {Nav, Navbar, Container} from 'react-bootstrap';
-// import { CgUser } from "react-icons/cg";
-import {FaOpencart} from "react-icons/fa6"
-import {TfiUser} from "react-icons/tfi";
-import { useNavigate} from "react-router-dom";
+// import React from "react";
+// import {Nav, Navbar, Container} from 'react-bootstrap';
+// // import { CgUser } from "react-icons/cg";
+// import {FaOpencart} from "react-icons/fa6"
+// import {TfiUser} from "react-icons/tfi";
+// import { useNavigate} from "react-router-dom";
 
 
 function Header() {

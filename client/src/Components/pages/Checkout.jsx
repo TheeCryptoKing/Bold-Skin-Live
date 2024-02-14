@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect} from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import PaymentCheckout from "../PaymentAtCheckout";
-import AddressCheckout from "../AddressAtCheckout";
-import Confirmation from "../Confirmation";
-import Context from '../Context.jsx'
+// import React, { useState, useContext, useEffect} from "react";
+// import { Container, Row, Col } from "react-bootstrap";
+// import PaymentCheckout from "../PaymentAtCheckout";
+// import AddressCheckout from "../AddressAtCheckout";
+// import Confirmation from "../Confirmation";
+// import Context from '../Context.jsx'
 
 function Checkout() {
     // const {user, setUser} = useContext(Context)

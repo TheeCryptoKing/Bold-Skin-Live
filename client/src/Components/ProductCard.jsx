@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import Context from "./Context";
-import { Card, Pagination, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// import React, { useState, useEffect, useContext } from "react";
+// import Context from "./Context";
+// import { Card, Pagination, Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
 
 
 function ProductCard({ products, searchQuery }) {

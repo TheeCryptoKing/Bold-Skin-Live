@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Container, Row, Col } from "react-bootstrap";
-import Context from "./Context";
+// import React, { useContext } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { Button, Container, Row, Col } from "react-bootstrap";
+// import Context from "./Context";
 
 function Confirmation() {
   // const { user } = useContext(Context);

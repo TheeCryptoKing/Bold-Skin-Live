@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import Context from '../Context.jsx'
-import { Container, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+// import React, { useContext, useEffect, useState } from "react";
+// import Context from '../Context.jsx'
+// import { Container, Button } from "react-bootstrap";
+// import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     // const navigate = useNavigate();
