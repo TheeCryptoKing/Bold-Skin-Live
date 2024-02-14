@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Context from "../Context";
-import { Container, Card, Table, Row, Col, Button } from "react-bootstrap";
+import { Container, Table, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoadingAnimation from '../LoadingAnimation';
 

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Context from '../Context.jsx'
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { FaDatabase, FaClipboardList, FaHeart } from "react-icons/fa";
+import { Container, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const navigate = useNavigate();

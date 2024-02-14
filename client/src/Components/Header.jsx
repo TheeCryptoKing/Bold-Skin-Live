@@ -1,7 +1,5 @@
 import React from "react";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import {Nav, Navbar, Container} from 'react-bootstrap';
 // import { CgUser } from "react-icons/cg";
 import {FaOpencart} from "react-icons/fa6"
 import {TfiUser} from "react-icons/tfi";
