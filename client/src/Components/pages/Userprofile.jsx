@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Context from "../Context.jsx";
-import { Container, Table, Row, Col, Button, Modal } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Container, Table, Row, Col, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 function ProfileDetails() {

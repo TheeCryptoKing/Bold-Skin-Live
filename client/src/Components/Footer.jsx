@@ -6,13 +6,11 @@ import {
     MDBBtn
 } from 'mdb-react-ui-kit';
 import {
-    FaTwitter,
     FaInstagram,
     FaLinkedin,
     FaGithub,
     FaGoogle,
     } from "react-icons/fa";
-import { BsFacebook } from "react-icons/bs";
 // error with mdb react ui kit
 
 export default function App() {
