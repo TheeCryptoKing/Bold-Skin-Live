@@ -1,22 +1,23 @@
 from api.config import app, db, api
 from flask_migrate import Migrate
+from flask_restful import Resource
 from flask import request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import generate_password_hash
-from api.models import ( 
-    User, 
-    Payment, 
-    Address, 
-    Product, 
-    Category, 
-    # Review, 
-    # Comment, 
-    # Role, 
-    Cart, 
-    CartItem, 
-    Order, 
+from api.models import (
+    User,
+    Payment,
+    Address,
+    Product,
+    Category,
+    # Review,
+    # Comment,
+    # Role,
+    Cart,
+    CartItem,
+    Order,
     OrderItems
-    )
+)
 # import ipdb
 import traceback
 
@@ -24,13 +25,14 @@ migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-################ Rinse & Repeat 
+# Rinse & Repeat
 ########################## LOGIN, SINGUP, LOGOUT #########################
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=user_id).first()
+
 
 class Signup(Resource):
     def post(self):
@@ -41,43 +43,48 @@ class Signup(Resource):
             email=data['email'],
         )
         new_user.password_hash = data['password']
-        # Create Cart 
+        # Create Cart
         new_cart = Cart()
         new_user.cart = new_cart
         # Create Role & find another method
         # new_role = Role(name='Regular')
         # new_user.Urole = new_role
-        
+
         # Create Wishlist
-        # Need & define a table 
-        
+        # Need & define a table
+
         # Commit changes
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
         return new_user.to_dict(), 201
-# Working 
+# Working
+
 
 class Login(Resource):
     def post(self):
         data = request.get_json()
-        # Atribute Needed to fetch Username or their email 
-        identifier = data.get('identifier') 
+        # Atribute Needed to fetch Username or their email
+        identifier = data.get('identifier')
         password = data.get('password')
-        user = User.query.filter((User.email == identifier) | (User.username == identifier)).first()
+        user = User.query.filter((User.email == identifier) | (
+            User.username == identifier)).first()
         if user:
             if user.authenticate(password):
                 login_user(user, remember=True)
                 return user.to_dict(), 200
-        return {'Error':'401 Unauthorized'}, 401
+        return {'Error': '401 Unauthorized'}, 401
 # Working
 
-@app.route("/logout", methods=["POST"]) # Regular flask Syntax 
-@login_required # ensuring that the user must be authenticated before accessing the endpoint.
+
+@app.route("/logout", methods=["POST"])  # Regular flask Syntax
+# ensuring that the user must be authenticated before accessing the endpoint.
+@login_required
 def logout():
-    logout_user() #  clearing the user's session and marking them as logged out
-    return f'Logout Successful'# , redirect(url_for('home'))
+    logout_user()  # clearing the user's session and marking them as logged out
+    return f'Logout Successful'  # , redirect(url_for('home'))
 # Working
+
 
 class CheckSession(Resource):
     def get(self):
@@ -87,6 +94,7 @@ class CheckSession(Resource):
         return {"Error": "Unauthorized user"}, 401
 # working
 
+
 api.add_resource(Login, '/login')
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
@@ -94,6 +102,8 @@ api.add_resource(CheckSession, '/check_session')
 # ################ USER ROUTES ######################
 
 # If adding new route, server needs to be restarted
+
+
 class Users(Resource):
     @login_required
     def get(self):
@@ -101,17 +111,17 @@ class Users(Resource):
             user = current_user
             if user:
                 return {
-                    "id" : user.id,
+                    "id": user.id,
                     "name": user.name,
                     "email": user.email,
                 }, 200
-            else: 
-                return {"Error" : "User not found"}, 404
+            else:
+                return {"Error": "User not found"}, 404
         except:
-            return {"Error" : "Error fetching User data"}, 500
+            return {"Error": "Error fetching User data"}, 500
         # working
-        
-    @login_required 
+
+    @login_required
     def patch(self):
         try:
             user = current_user
@@ -124,19 +134,19 @@ class Users(Resource):
                     hashedP = generate_password_hash(user_pass)
                     user._password_hash = hashedP
                 # Add Patch for username
-                
+
                 db.session.commit()
                 return {
-                    "id" : user.id,
+                    "id": user.id,
                     "name": user.name,
                     "email": user.email
                 }, 200
             else:
-                return {"error" : "User not found"}, 404
+                return {"error": "User not found"}, 404
         except:
-            return {"error" : "Error with Updating Users"}, 500
+            return {"error": "Error with Updating Users"}, 500
         # Working
-        
+
     @login_required
     def delete(self):
         try:
@@ -146,12 +156,14 @@ class Users(Resource):
                 db.session.commit()
                 return {}, 204
             else:
-                return {"error" : "User not found"}, 404
+                return {"error": "User not found"}, 404
         except:
-            return {"error" : "Error with Deleting User"}, 500
+            return {"error": "Error with Deleting User"}, 500
+
         # Working
 api.add_resource(Users, '/users')
 # Fully fuctional
+
 
 class UserOrders(Resource):
     @login_required
@@ -171,10 +183,12 @@ class UserOrders(Resource):
             return order_history, 200
         except Exception as e:
             traceback.print_exc()
-            return {"error" : "Error while fetching order history", "message": str(e)}, 500
-        
+            return {"error": "Error while fetching order history", "message": str(e)}, 500
+
+
 api.add_resource(UserOrders, '/user/orders')
 # Working
+
 
 class UserOrdersByID(Resource):
     @login_required
@@ -186,10 +200,10 @@ class UserOrdersByID(Resource):
                 # Check with Current order table
                 order_items = [
                     {
-                    "product_id": item.product_id,
-                    "product_name": item.product.name,
-                    "num_of_items": item.num_of_items,
-                    "items_price": item.items_price
+                        "product_id": item.product_id,
+                        "product_name": item.product.name,
+                        "num_of_items": item.num_of_items,
+                        "items_price": item.items_price
                     }
                     for item in order.order_items
                 ]
@@ -203,22 +217,25 @@ class UserOrdersByID(Resource):
                 return {"error": "Order not found"}, 404
         except:
             return {"error": "Error occured Fetching order data"}, 500
-        
+
     @login_required
     def delete(self, order_id):
-            try:
-                user_id = current_user.id
-                order = Order.query.filter_by(id=order_id, user_id=user_id).first()
-                if order:
-                    db.session.delete(order)
-                    db.session.commit()
-                    return {}, 204
-                else:
-                    return {"Error": "Order not found"}, 404
-            except:
-                return  {"Error": "Error with cancellation of current order"}, 500
+        try:
+            user_id = current_user.id
+            order = Order.query.filter_by(id=order_id, user_id=user_id).first()
+            if order:
+                db.session.delete(order)
+                db.session.commit()
+                return {}, 204
+            else:
+                return {"Error": "Order not found"}, 404
+        except:
+            return {"Error": "Error with cancellation of current order"}, 500
+
+
 # Need orders to tests
 api.add_resource(UserOrdersByID, '/user/orders/<int:order_id>')
+
 
 class UserPayments(Resource):
     @login_required
@@ -276,16 +293,19 @@ class UserPayments(Resource):
             traceback.print_exc()
             return {"Error": "Error encountered while adding the payment details", "message": str(e)}, 500
 
+
 # Get working,
 # Post working, Logic needs fixing on validation of month and year
 # Functional otherwise
 api.add_resource(UserPayments, '/payments/<int:user_id>')
 
+
 class UserPaymentsByID(Resource):
     @login_required
     def get(self, user_id, payment_id):
         try:
-            user_payment = Payment.query.filter_by(user_id=user_id, id=payment_id).first()
+            user_payment = Payment.query.filter_by(
+                user_id=user_id, id=payment_id).first()
             if user_payment:
                 payment_info = {
                     "id": user_payment.id,
@@ -300,7 +320,7 @@ class UserPaymentsByID(Resource):
                 return {"error": "Payment details not found"}, 404
         except:
             return {"error": "An error occurred while fetching the payment details"}, 500
-        
+
     @login_required
     def delete(self, user_id, payment_id):
         try:
@@ -315,10 +335,12 @@ class UserPaymentsByID(Resource):
         except:
             return {"error": "An error occurred while deleting the payment details"}, 500
 
+
 # Get Working
 # Delete Working
 # Fully functional
 api.add_resource(UserPaymentsByID, '/payments/<int:user_id>/<int:payment_id>')
+
 
 class UserAddress(Resource):
     @login_required
@@ -355,10 +377,10 @@ class UserAddress(Resource):
                 address_postal=data.get('address_postal'),
                 address_type_of=data.get('address_type_of')
             )
-            
+
             db.session.add(address)
             db.session.commit()
-            
+
             address_info = {
                 'id': address.id,
                 'address_1': address.address_1,
@@ -369,22 +391,25 @@ class UserAddress(Resource):
                 'address_type_of': address.address_type_of
             }
             return address_info, 201
-        
+
         except Exception as e:
             traceback.print_exc()
             return {'Error': 'Error while creating User address', "message": str(e)}, 500
+
 
 # Get working(Returning empty list with empty data)
 # Post working
 # Fully functional
 api.add_resource(UserAddress, '/addresses/<int:user_id>')
 
+
 class UserAddressByID(Resource):
     @login_required
     def patch(self, user_id, address_id):
         try:
             data = request.get_json()
-            address = Address.query.filter_by(id=address_id, user_id=user_id).first()
+            address = Address.query.filter_by(
+                id=address_id, user_id=user_id).first()
             if not address:
                 return {"Error": "Address not found"}, 404
 
@@ -401,7 +426,8 @@ class UserAddressByID(Resource):
     @login_required
     def delete(self, user_id, address_id):
         try:
-            address = Address.query.filter_by(id=address_id, user_id=user_id).first()
+            address = Address.query.filter_by(
+                id=address_id, user_id=user_id).first()
             if not address:
                 return {"Error": "Address not found"}, 404
 
@@ -410,6 +436,7 @@ class UserAddressByID(Resource):
             return {}, 204
         except:
             return {"Error": "Error Deleting Address"}, 500
+
 
 # Patch Working
 # Delete Working
@@ -420,11 +447,15 @@ api.add_resource(UserAddressByID, '/addresses/<int:user_id>/<int:address_id>')
 class Categories(Resource):
     def get(self):
         try:
-            categories = [category.to_dict() for category in Category.query.all()]
+            categories = [category.to_dict()
+                          for category in Category.query.all()]
             return categories, 200
         except:
             return {"Error": "Categories not found"}, 404
+
+
 api.add_resource(Categories, '/categories')
+
 
 class Products(Resource):
 
@@ -445,11 +476,10 @@ class Products(Resource):
                 # 'storage',
                 # 'intiative',
                 # 'category_id')
-                ) for product in Product.query.all()]
+            ) for product in Product.query.all()]
             return products, 200
         except Exception as e:
             return {"Error": "Failed to retrieve products", "message": str(e)}, 500
-
 
     def patch(self, id):
         try:
@@ -462,31 +492,34 @@ class Products(Resource):
 
                 db.session.commit()
                 return product.to_dict(
-                # only=(
-                # 'id',
-                # 'name',
-                # 'price',
-                # 'quantity',
-                # 'e_pitch',
-                # 'description',
-                # 'image_1',
-                # 'image_2',
-                # 'application',
-                # 'ingredients',
-                # 'storage',
-                # 'intiative',
-                # 'category_id'
-                # )
+                    # only=(
+                    # 'id',
+                    # 'name',
+                    # 'price',
+                    # 'quantity',
+                    # 'e_pitch',
+                    # 'description',
+                    # 'image_1',
+                    # 'image_2',
+                    # 'application',
+                    # 'ingredients',
+                    # 'storage',
+                    # 'intiative',
+                    # 'category_id'
+                    # )
                 ), 200
             else:
                 return {"error": "Product not found"}, 404
         except Exception as e:
             return {"Error": "Failed to update product", "message": str(e)}, 500
+
+
 api.add_resource(Products, '/products')
 
 
 class ProductByCategory(Resource):
     print('Intializing get for product category')
+
     def get(self, category_id):
         try:
             # Connect with Seed
@@ -506,11 +539,14 @@ class ProductByCategory(Resource):
                 # 'storage',
                 # 'intiative',
                 # 'category_id')
-                ) for product in products]
+            ) for product in products]
             return products_data, 200
         except:
             return {"Error": "Products not found for the specified category"}, 404
+
+
 api.add_resource(ProductByCategory, '/products/category/<int:category_id>')
+
 
 class ProductById(Resource):
 
@@ -532,10 +568,13 @@ class ProductById(Resource):
                 # 'storage',
                 # 'intiative',
                 # 'category_id')
-                ), 200
+            ), 200
         except Exception as e:
             return {"Error": "Failed to retrieve product", "message": str(e)}, 500
+
+
 api.add_resource(ProductById, '/products/<int:id>')
+
 
 class Carts(Resource):
     @login_required
@@ -666,8 +705,11 @@ class Carts(Resource):
                 return {'Error': 'Item not found in cart'}, 404
         except:
             return {'Error': 'Error occurred while deleting item from cart'}, 500
+
+
 # Working
 api.add_resource(Carts, '/carts')
+
 
 class Checkout(Resource):
     @login_required
@@ -678,7 +720,8 @@ class Checkout(Resource):
                 total = 0.0
                 for cart_item in cart.cartItems:
                     total += cart_item.product.price * cart_item.quantity
-                    product = Product.query.filter_by(id=cart_item.product_id).first()
+                    product = Product.query.filter_by(
+                        id=cart_item.product_id).first()
                     product.quantity -= cart_item.quantity
                     db.session.add(product)
                 order = Order(
@@ -707,16 +750,16 @@ class Checkout(Resource):
             else:
                 return {'Error': 'Cart not found'}, 404
         except Exception as e:
-            traceback.print_exc() 
+            traceback.print_exc()
             # restores your database to your last COMMIT
-            db.session.rollback()  
+            db.session.rollback()
             return {'Error': 'Error occurred placing order', 'details': str(e)}, 500
-# 
-# 
+
+
+#
+#
 api.add_resource(Checkout, '/checkout')
 # Working
-
-
 
 
 ##################### Review Routes (After MVP)#########################
@@ -737,7 +780,7 @@ api.add_resource(Checkout, '/checkout')
 
 #                 if review.updated_at:
 #                     review_info['updated_at'] = review.updated_at.isoformat()
-#                     # sed to return a string of date, time, and UTC offset to the corresponding time zone 
+#                     # sed to return a string of date, time, and UTC offset to the corresponding time zone
 
 #                 review_list.append(review_info)
 #             return review_list, 200
@@ -782,7 +825,7 @@ api.add_resource(Checkout, '/checkout')
 #         except Exception as e:
 #             print(e)
 #             return {'Error': 'Error while posting review', 'message': str(e)}, 500
-        
+
 # class UserReview(Resource):
 #     @login_required
 #     def patch(self, review_id):
@@ -890,15 +933,15 @@ api.add_resource(Checkout, '/checkout')
 #         parser = reqparse.RequestParser()
 #         parser.add_argument('query', type=str, required=True, help="Search query is required")
 #         args = parser.parse_args()
-        
+
 #         query = args['query']
 #         results = []
-        
+
 #         # Perform the search operation based on the query
 #         for item in Product:
 #             if query.lower() in item['name'].lower():
 #                 results.append(item)
-        
+
 #         return {'results': results}
 
 
@@ -910,8 +953,6 @@ api.add_resource(Checkout, '/checkout')
 # api.add_resource(LikeComments, "/like_comment/<int:id>")
 # api.add_resource(UnlikeComments, "/unlike_comment/<int:id>")
 # api.add_resource(SearchProducts, '/search')
-
-
 
 
 if __name__ == '__main__':
