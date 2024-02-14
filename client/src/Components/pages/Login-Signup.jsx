@@ -1,10 +1,10 @@
-// import React, { useState } from "react";
-// import Login from '../login.jsx'
-// import Signup from '../signup.jsx'
-// import { Row, Col, Container } from "react-bootstrap";
+import React, { useState } from "react";
+import Login from '../login.jsx'
+import Signup from '../signup.jsx'
+import { Row, Col, Container } from "react-bootstrap";
 
 
-// function ProcessUser(){
+function ProcessUser(){
 //     const[showLoginForm, setShowLoginForm] = useState(false)
 //     const[showSignupForm, setShowSignupForm] = useState(false)
 
@@ -33,6 +33,6 @@
 //       </Col>
 //     </Container>
 //   );
-// }
+}
 
-// export default ProcessUser
+export default ProcessUser

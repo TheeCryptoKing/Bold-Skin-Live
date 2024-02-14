@@ -1,14 +1,14 @@
-// import React, { useState, useEffect, useContext } from "react";
-// import Context from "../Context.jsx";
-// import { Card, Container, Row, Button, Col, Form } from "react-bootstrap";
-// import { useNavigate} from "react-router-dom";
-// import { Formik, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import AddressForm from "../addressForm.jsx";
-// // import UserPaymentForm from "../paymentForm.jsx";
+import React, { useState, useEffect, useContext } from "react";
+import Context from "../Context.jsx";
+import { Card, Container, Row, Button, Col, Form } from "react-bootstrap";
+import { useNavigate} from "react-router-dom";
+import { Formik, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import AddressForm from "../addressForm.jsx";
+// import UserPaymentForm from "../paymentForm.jsx";
 
-// // SYnntax will not allow me to inport this function in this specfic compoenent??? idk why
-// function UserPaymentFrom() {
+// SYnntax will not allow me to inport this function in this specfic compoenent??? idk why
+function UserPaymentFrom() {
 //     const { user } = useContext(Context);
 //     const [paymentDetails, setPaymentDetails] = useState([]);
 //     const [showAddPaymentForm, setShowAddPaymentForm] = useState(false);
@@ -511,8 +511,8 @@
 //         </Row>
 //     </Container>
 //     </div>
-//   )
-// }
+  // )
+}
 
-// export default EditProfile
+export default EditProfile
 

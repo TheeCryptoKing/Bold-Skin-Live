@@ -1,13 +1,13 @@
-// import React, { useState, useEffect, useContext } from "react";
-// import Context from "../Context";
-// import { useParams } from "react-router-dom";
-// import { Row, Col, Container, Button, Accordion } from "react-bootstrap";
-// import LoadingAnimation from '../LoadingAnimation'
-// // import ReviewContainer from "../ReviewContainer.jsx";
-// // import ReviewForm from "../ReviewForm.jsx";
+import React, { useState, useEffect, useContext } from "react";
+import Context from "../Context";
+import { useParams } from "react-router-dom";
+import { Row, Col, Container, Button, Accordion } from "react-bootstrap";
+import LoadingAnimation from '../LoadingAnimation'
+// import ReviewContainer from "../ReviewContainer.jsx";
+// import ReviewForm from "../ReviewForm.jsx";
 
-// function Product() {
-//     // initalized State
+function Product() {
+    // initalized State
 //     const { id } = useParams();
 //     const { user } = useContext(Context);
 //     const [product, setProduct] = useState(null);
@@ -271,7 +271,7 @@
 
 //         </Container>
 // );
-// }
+}
 
 
-// export default Product;
+export default Product;
