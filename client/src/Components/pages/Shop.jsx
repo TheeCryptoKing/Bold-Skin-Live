@@ -15,7 +15,7 @@ function Shop() {
 
   // Fetch general product data
   useEffect(() => {
-    fetch("/api/products")
+    fetch("/products")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);

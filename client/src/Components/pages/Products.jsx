@@ -19,7 +19,7 @@ function Product() {
 
   // fetching product data by ID on render
   useEffect(() => {
-    fetch(`/api/products/${id}`)
+    fetch(`/products/${id}`)
       .then((response) => response.json())
       .then((productData) => {
         setProduct(productData);
@@ -100,7 +100,7 @@ function Product() {
     };
 
     // fetch car data
-    fetch("/api/carts", {
+    fetch("/carts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

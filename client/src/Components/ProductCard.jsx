@@ -25,7 +25,7 @@ function ProductCard({ products, searchQuery }) {
   );
 
   useEffect(() => {
-    fetch("/api/carts")
+    fetch("/carts")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -48,7 +48,7 @@ function ProductCard({ products, searchQuery }) {
       quantity: quantity,
     };
 
-    fetch("/api/carts", {
+    fetch("/carts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -30,7 +30,7 @@ function PaymentCheckout({ onNext }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`/api/payments/${user.id}`)
+      fetch(`/payments/${user.id}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -51,7 +51,7 @@ function PaymentCheckout({ onNext }) {
   }, [user]);
 
   const handleNext = (values) => {
-    fetch(`/api/payments/${user.id}`, {
+    fetch(`/payments/${user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

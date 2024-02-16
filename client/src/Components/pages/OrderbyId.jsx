@@ -12,7 +12,7 @@ function OrderById() {
   const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/user/orders/${order_id}`)
+    fetch(`/user/orders/${order_id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -37,7 +37,7 @@ function OrderById() {
   };
 
   const handleYes = () => {
-    fetch(`/api/user/orders/${order_id}`, {
+    fetch(`/user/orders/${order_id}`, {
       method: "DELETE",
     }).then(() => {
       navigate("/profile");
