@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, Row, Button, Form } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import {Card} from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Context from "./Context";

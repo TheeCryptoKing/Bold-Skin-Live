@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Context from "../Context.jsx";
-import { Card, Container, Table, Row, Button, Col, Form } from "react-bootstrap";
-import { Link, useNavigate} from "react-router-dom";
+import { Card, Container, Row, Button, Col, Form } from "react-bootstrap";
+import { useNavigate} from "react-router-dom";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import AddressForm from "../addressForm.jsx";

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Context from "../Context";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Row, Col, Container, Carousel, Button, Image } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import LoadingAnimation from "../LoadingAnimation";
 import Accordion from "react-bootstrap/Accordion";
 // import ReviewContainer from "../ReviewContainer.jsx";

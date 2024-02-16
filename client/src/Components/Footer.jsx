@@ -1,7 +1,6 @@
 // import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBBtn } from "mdb-react-ui-kit";
 import {
-  // FaTwitter,
   FaInstagram,
   FaLinkedin,
   FaGithub,
