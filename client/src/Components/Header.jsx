@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CgUser, CgProfile } from "react-icons/cg";
-import Button from 'react-bootstrap/Button';
+import React from "react";
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 // import { CgUser } from "react-icons/cg";
-import {FaJenkins, FaCcDiscover, FaFolderOpen, FaHandHoldingUsd, FaEdit} from "react-icons/fa";
 import {FaOpencart} from "react-icons/fa6"
 import {TfiUser} from "react-icons/tfi";
-import { Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 
 function Header() {
