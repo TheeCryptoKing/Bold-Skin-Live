@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Context from '../Context.jsx'
 import Login from '../login.jsx'
 import Signup from '../signup.jsx'
-import { Row, Col, Container, Button, Image } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 
 function ProcessUser(){

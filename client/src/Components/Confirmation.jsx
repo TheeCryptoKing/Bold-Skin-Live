@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import Context from "./Context";
@@ -35,10 +35,16 @@ function Confirmation() {
       <Row>
         <Col className="checkout-center mdMT mdMB">
           <h2 className="title-text">Confirm Order?</h2>
-          <Button variant="success" className="checkout-button mdMB"onClick={handleYes}>
+          <Button
+            variant="success"
+            className="checkout-button mdMB"
+            onClick={handleYes}>
             Yes
           </Button>{" "}
-          <Button variant="danger" className="edit-profile-button" onClick={handleNo}>
+          <Button
+            variant="danger"
+            className="edit-profile-button"
+            onClick={handleNo}>
             No
           </Button>
         </Col>

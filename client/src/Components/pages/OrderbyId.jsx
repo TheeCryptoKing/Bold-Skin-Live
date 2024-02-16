@@ -12,7 +12,7 @@ function OrderById() {
   const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
-    fetch(`/user/orders/${order_id}`)
+    fetch(`/api/user/orders/${order_id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -29,7 +29,7 @@ function OrderById() {
   }, [order_id]);
 
   if (!order) {
-    return <div className='center'>Loading...</div>;
+    return <div className="center">Loading...</div>;
   }
 
   const showConfirmation = () => {
@@ -37,7 +37,7 @@ function OrderById() {
   };
 
   const handleYes = () => {
-    fetch(`/user/orders/${order_id}`, {
+    fetch(`/api/user/orders/${order_id}`, {
       method: "DELETE",
     }).then(() => {
       navigate("/profile");
@@ -58,13 +58,22 @@ function OrderById() {
   });
 
   const backToProfile = () => {
-    navigate("/profile")
-  }
+    navigate("/profile");
+  };
 
   return (
     <Container>
       <Row className="mdMT">
-        <h3>Order: {order_id}</h3> <p><b>Return to profile?</b> <Button className="edit-profile-button"onClick={backToProfile} style={{cursor:'pointer'}}>Click Here</Button></p>
+        <h3>Order: {order_id}</h3>{" "}
+        <p>
+          <b>Return to profile?</b>{" "}
+          <Button
+            className="edit-profile-button"
+            onClick={backToProfile}
+            style={{ cursor: "pointer" }}>
+            Click Here
+          </Button>
+        </p>
       </Row>
       <Row>
         <Table striped bordered hover>
@@ -88,8 +97,7 @@ function OrderById() {
             <Button
               className="user-delete"
               variant="success"
-              onClick={handleYes}
-            >
+              onClick={handleYes}>
               Yes
             </Button>
             <Button className="user-delete" variant="danger" onClick={handleNo}>
@@ -99,8 +107,7 @@ function OrderById() {
         ) : (
           <Button
             className="edit-profile-button mdMB"
-            onClick={showConfirmation}
-          >
+            onClick={showConfirmation}>
             Cancel Order
           </Button>
         )}

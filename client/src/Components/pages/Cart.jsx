@@ -2,13 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import Context from "../Context";
 import { Container, Table, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import LoadingAnimation from '../LoadingAnimation';
-
+import LoadingAnimation from "../LoadingAnimation";
 
 function EditableQuantityField({ productId, quantity, onSave }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedQuantity, setEditedQuantity] = useState(quantity);
-
 
   const handleSaveClick = () => {
     setIsEditing(false);
@@ -36,9 +34,8 @@ function EditableQuantityField({ productId, quantity, onSave }) {
           {quantity}
           <Button
             className="shop-button custom-cart-button"
-            style={{marginLeft: '20px'}}
-            onClick={() => setIsEditing(true)}
-          >
+            style={{ marginLeft: "20px" }}
+            onClick={() => setIsEditing(true)}>
             Edit
           </Button>
         </>
@@ -54,7 +51,7 @@ function Cart() {
   const [cartTotal, setCartTotal] = useState([]);
 
   useEffect(() => {
-    fetch("/carts")
+    fetch("/api/carts")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -74,10 +71,17 @@ function Cart() {
     if (cart) {
       const items = cart.items.map((item) => (
         <tr key={item.item_id}>
-          <td className="cart-data"><img src={item.product_image} style={{ width: '7vw', height :'9vh'}}/></td>
+          <td className="cart-data">
+            <img
+              src={item.product_image}
+              style={{ width: "7vw", height: "9vh" }}
+            />
+          </td>
           <td className="cart-data">{item.product_name}</td>
           <td className="cart-data">{item.product_price}</td>
-          <td className="cart-data">  Quantity: <br/>
+          <td className="cart-data">
+            {" "}
+            Quantity: <br />
             <EditableQuantityField
               productId={item.product_id}
               quantity={item.quantity}
@@ -87,8 +91,7 @@ function Cart() {
           <td className="cart-data">
             <Button
               className="cart-button custom-cart-button"
-              onClick={() => handleRemoveItem(item.item_id)}
-            >
+              onClick={() => handleRemoveItem(item.item_id)}>
               Remove
             </Button>
           </td>
@@ -96,7 +99,7 @@ function Cart() {
       ));
       setCartItems(items);
       const subtotal = cart.items.reduce((total, item) => {
-        return total + (item.product_price * item.quantity);
+        return total + item.product_price * item.quantity;
       }, 0);
       const roundedSubtotal = subtotal.toFixed(2);
       setCartTotal(roundedSubtotal);
@@ -123,7 +126,7 @@ function Cart() {
   };
 
   const updateCartItem = (productId, quantity) => {
-    fetch(`/carts`, {
+    fetch(`/api/carts`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +144,7 @@ function Cart() {
   };
 
   const deleteCartItem = (itemId) => {
-    fetch(`/carts`, {
+    fetch(`/api/carts`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -168,41 +171,38 @@ function Cart() {
 
   return (
     <Container className="">
-    <div>
-      <Row>
-        <h3 className="title-text mdMB mdMT"> 
-        Your Cart 
-        <span> ({cart.items.length} items)</span>
-        </h3>
-        <h5 className="title-text ">
-        Every $10 spent, you plant a Tree! How many Tree's Are you planting Today?
-        </h5>
-      </Row>
-      <Row>
-        {cart && cart.items.length === 0 ? (
-          <p className="cart-data">Your cart is empty...</p>
-        ) : (
-          <>
-            <Col >
-            <Table>
-            <div className=" cart_section mdMB mdMT">
-            <tr >{cartItems}</tr>
-            </div>
-            </Table>
-            </Col>
-            <Col className="subtotal">
-            <h3>Subtotal: {cartTotal}</h3>
-            <Button
-                as={Link}
-                to="/checkout"
-                className=" cart-button"
-              >
-                Proceed to Secure Checkout
-              </Button>
+      <div>
+        <Row>
+          <h3 className="title-text mdMB mdMT">
+            Your Cart
+            <span> ({cart.items.length} items)</span>
+          </h3>
+          <h5 className="title-text ">
+            Every $10 spent, you plant a Tree! How many Tree's Are you planting
+            Today?
+          </h5>
+        </Row>
+        <Row>
+          {cart && cart.items.length === 0 ? (
+            <p className="cart-data">Your cart is empty...</p>
+          ) : (
+            <>
+              <Col>
+                <Table>
+                  <div className=" cart_section mdMB mdMT">
+                    <tr>{cartItems}</tr>
+                  </div>
+                </Table>
               </Col>
-          </>
-        )}
-      </Row>
+              <Col className="subtotal">
+                <h3>Subtotal: {cartTotal}</h3>
+                <Button as={Link} to="/checkout" className=" cart-button">
+                  Proceed to Secure Checkout
+                </Button>
+              </Col>
+            </>
+          )}
+        </Row>
       </div>
     </Container>
   );

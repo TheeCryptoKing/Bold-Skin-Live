@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Row, Button, Form } from "react-bootstrap";
-import Card from 'react-bootstrap/Card';
+import {Card} from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Context from "./Context";
@@ -139,7 +139,9 @@ function AddressForm() {
         <Row>
           <h3 className=" title-text mdMT mdMB">
             Add an address
-            <Button onClick={handleAddAddress} className="edit-profile-button mdML">
+            <Button
+              onClick={handleAddAddress}
+              className="edit-profile-button mdML">
               Click Here
             </Button>
           </h3>
@@ -147,29 +149,30 @@ function AddressForm() {
       ) : (
         <Row>
           {addressDetails.map((address) => (
-            <Card key={address.id} className="bg-card-color" style={{ width: '15rem' }}>
+            <Card
+              key={address.id}
+              className="bg-card-color"
+              style={{ width: "15rem" }}>
               <Card.Body>
-                <Card.Title>
-                  {address.address_1}
-                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{address.address_2}</Card.Subtitle>
+                <Card.Title>{address.address_1}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {address.address_2}
+                </Card.Subtitle>
                 <Card.Text className="mb-2 text-muted smMT ">
                   City: {address.address_city},
-                  <br/> State: {address.address_state}, 
+                  <br /> State: {address.address_state},
                   <br /> Zip: {address.address_postal}
                   <br />
                   Type: {address.address_type_of}
                 </Card.Text>
                 <Button
                   className="edit-profile-button mdMT"
-                  onClick={() => handleEditAddress(address.id)}
-                >
+                  onClick={() => handleEditAddress(address.id)}>
                   Edit
                 </Button>
                 <Button
                   className="edit-profile-button mdMT"
-                  onClick={() => handleDeleteAddress(address.id)}
-                >
+                  onClick={() => handleDeleteAddress(address.id)}>
                   Delete
                 </Button>
               </Card.Body>
@@ -206,14 +209,12 @@ function AddressForm() {
               address_type_of: "",
             }}
             validationSchema={addressValidationSchema}
-            onSubmit={handleFormSubmit}
-          >
+            onSubmit={handleFormSubmit}>
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group
                   controlId="address_1"
-                  className="address-form-input"
-                >
+                  className="address-form-input">
                   <Form.Label className="smMT">Address </Form.Label>
                   <Field type="text" name="address_1" as={Form.Control} />
                   <ErrorMessage
@@ -225,13 +226,14 @@ function AddressForm() {
 
                 <Form.Group
                   controlId="address_2"
-                  className="address-form-input"
-                >
+                  className="address-form-input">
                   <Form.Label>Backup Address </Form.Label>
                   <Field type="text" name="address_2" as={Form.Control} />
                 </Form.Group>
 
-                <Form.Group controlId="address_city" className="address-form-input">
+                <Form.Group
+                  controlId="address_city"
+                  className="address-form-input">
                   <Form.Label>City</Form.Label>
                   <Field type="text" name="address_city" as={Form.Control} />
                   <ErrorMessage
@@ -241,9 +243,14 @@ function AddressForm() {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="address_state" className="address-form-input">
+                <Form.Group
+                  controlId="address_state"
+                  className="address-form-input">
                   <Form.Label>State</Form.Label>
-                  <Field as="select" name="address_state" className="form-control">
+                  <Field
+                    as="select"
+                    name="address_state"
+                    className="form-control">
                     <option value="">Select a state</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -305,8 +312,7 @@ function AddressForm() {
 
                 <Form.Group
                   controlId="address_postal"
-                  className="address-form-input"
-                >
+                  className="address-form-input">
                   <Form.Label>Postal Code</Form.Label>
                   <Field type="text" name="address_postal" as={Form.Control} />
                   <ErrorMessage
@@ -318,14 +324,12 @@ function AddressForm() {
 
                 <Form.Group
                   controlId="address_type_of"
-                  className="address-form-input"
-                >
+                  className="address-form-input">
                   <Form.Label>Address Type</Form.Label>
                   <Field
                     as="select"
                     name="address_type_of"
-                    className="form-control"
-                  >
+                    className="form-control">
                     <option value="">Select an address type</option>
                     <option value="billing">Billing</option>
                     <option value="shipping">Shipping</option>
@@ -337,15 +341,14 @@ function AddressForm() {
                   />
                 </Form.Group>
 
-                <Button
-                  type="submit"
-                  className="edit-profile-button smMT"
-                >
+                <Button type="submit" className="edit-profile-button smMT">
                   Submit
                 </Button>
-                <Button onClick={handleAddAddress} className="edit-profile-button smMT">
-              Cancel
-            </Button>
+                <Button
+                  onClick={handleAddAddress}
+                  className="edit-profile-button smMT">
+                  Cancel
+                </Button>
               </Form>
             )}
           </Formik>

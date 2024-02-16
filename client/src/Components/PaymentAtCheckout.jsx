@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import Context from "./Context";
 import { Formik, Field, ErrorMessage } from "formik";
 import { Card } from "react-bootstrap";
@@ -13,7 +13,9 @@ function PaymentCheckout({ onNext }) {
 
   const paymentValidationSchema = Yup.object().shape({
     cardholder_name: Yup.string().required("Cardholder name is required"),
-    card_number: Yup.string().required("Card number is required").length(16, "Card number must be exactly 16 characters"),
+    card_number: Yup.string()
+      .required("Card number is required")
+      .length(16, "Card number must be exactly 16 characters"),
     expiration_month: Yup.number()
       .required("Expiration month is required")
       .min(1, "Invalid month")
@@ -40,7 +42,7 @@ function PaymentCheckout({ onNext }) {
         })
         .then((payments) => {
           setPaymentDetails(payments);
-          console.log(paymentDetails)
+          console.log(paymentDetails);
         })
         .catch((error) => {
           console.error(error);
@@ -72,8 +74,8 @@ function PaymentCheckout({ onNext }) {
   };
 
   const handleCardonRecord = () => {
-    setUseCardOnRecord(!useCardOnRecord)
-  }
+    setUseCardOnRecord(!useCardOnRecord);
+  };
   // if (!user) {
   //   return null;
   // }
@@ -81,136 +83,130 @@ function PaymentCheckout({ onNext }) {
   return (
     <div className="">
       {!useCardOnRecord && paymentDetails && paymentDetails.length > 0 && (
-        <div  className="">
-          <h4 className="title-text mdMT mdMB" >Would you like to use a card on record?</h4>
+        <div className="">
+          <h4 className="title-text mdMT mdMB">
+            Would you like to use a card on record?
+          </h4>
           {paymentDetails.map((paymentMethod) => (
-            <Card key={paymentMethod.id} className="col-sm-4 checkout-cards" >
+            <Card key={paymentMethod.id} className="col-sm-4 checkout-cards">
               <Card.Body>
                 <Card.Title>{paymentMethod.cardholder_name}</Card.Title>
-                {paymentMethod.card_number && typeof paymentMethod.card_number === "string" || "integer" && (
-                  <Card.Text>
-                    Card Number ending in: ****
-                    {/* {(paymentMethod.card_number).toString()} */}
-                  </Card.Text>
-                )}
+                {(paymentMethod.card_number &&
+                  typeof paymentMethod.card_number === "string") ||
+                  ("integer" && (
+                    <Card.Text>
+                      Card Number ending in: ****
+                      {/* {(paymentMethod.card_number).toString()} */}
+                    </Card.Text>
+                  ))}
               </Card.Body>
             </Card>
           ))}
           <Button
             className="checkout-button mdMT mdMB mdMR"
-            onClick={() => onNext()}
-          >
+            onClick={() => onNext()}>
             Use Card on Record
           </Button>
           <Button
             className="checkout-button mdMT mdMB"
-            onClick={() => setUseCardOnRecord(true)}
-          >
+            onClick={() => setUseCardOnRecord(true)}>
             Enter New Payment
           </Button>
         </div>
       )}
       {!useCardOnRecord && (!paymentDetails || paymentDetails.length === 0) && (
         <Formik
-            initialValues={{
-              cardholder_name: "",
-              card_number: "",
-              expiration_month: "",
-              expiration_year: "",
-              cvv: "",
-            }}
-            validationSchema={paymentValidationSchema}
-            onSubmit={handleNext}
-          >
-            {({ handleSubmit }) => (
-              <Form onSubmit={handleSubmit}>
-                <Form.Group
-                  controlId="cardholder_name"
-                  className="payment-form-input"
-                >
-                  <Form.Label>Cardholder Name</Form.Label>
-                  <Field type="text" name="cardholder_name" as={Form.Control} />
-                  <ErrorMessage
-                    name="cardholder_name"
-                    component={Form.Text}
-                    className="text-danger"
-                  />
-                </Form.Group>
+          initialValues={{
+            cardholder_name: "",
+            card_number: "",
+            expiration_month: "",
+            expiration_year: "",
+            cvv: "",
+          }}
+          validationSchema={paymentValidationSchema}
+          onSubmit={handleNext}>
+          {({ handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                controlId="cardholder_name"
+                className="payment-form-input">
+                <Form.Label>Cardholder Name</Form.Label>
+                <Field type="text" name="cardholder_name" as={Form.Control} />
+                <ErrorMessage
+                  name="cardholder_name"
+                  component={Form.Text}
+                  className="text-danger"
+                />
+              </Form.Group>
 
-                <Form.Group
-                  controlId="card_number"
-                  className="payment-form-input"
-                >
-                  <Form.Label>Card Number</Form.Label>
-                  <Field type="text" name="card_number" as={Form.Control} />
-                  <ErrorMessage
-                    name="card_number"
-                    component={Form.Text}
-                    className="text-danger"
-                  />
-                </Form.Group>
+              <Form.Group
+                controlId="card_number"
+                className="payment-form-input">
+                <Form.Label>Card Number</Form.Label>
+                <Field type="text" name="card_number" as={Form.Control} />
+                <ErrorMessage
+                  name="card_number"
+                  component={Form.Text}
+                  className="text-danger"
+                />
+              </Form.Group>
 
-                <Form.Group
-                  controlId="expiration_month"
-                  className="payment-form-input"
-                >
-                  <Form.Label>Expiration Month</Form.Label>
-                  <Field
-                    type="number"
-                    min="1"
-                    max="12"
-                    name="expiration_month"
-                    as={Form.Control}
-                  />
-                  <ErrorMessage
-                    name="expiration_month"
-                    component={Form.Text}
-                    className="text-danger"
-                  />
-                </Form.Group>
+              <Form.Group
+                controlId="expiration_month"
+                className="payment-form-input">
+                <Form.Label>Expiration Month</Form.Label>
+                <Field
+                  type="number"
+                  min="1"
+                  max="12"
+                  name="expiration_month"
+                  as={Form.Control}
+                />
+                <ErrorMessage
+                  name="expiration_month"
+                  component={Form.Text}
+                  className="text-danger"
+                />
+              </Form.Group>
 
-                <Form.Group
-                  controlId="expiration_year"
-                  className="payment-form-input"
-                >
-                  <Form.Label>Expiration Year</Form.Label>
-                  <Field
-                    type="number"
-                    min={new Date().getFullYear()}
-                    name="expiration_year"
-                    as={Form.Control}
-                  />
-                  <ErrorMessage
-                    name="expiration_year"
-                    component={Form.Text}
-                    className="text-danger"
-                  />
-                </Form.Group>
+              <Form.Group
+                controlId="expiration_year"
+                className="payment-form-input">
+                <Form.Label>Expiration Year</Form.Label>
+                <Field
+                  type="number"
+                  min={new Date().getFullYear()}
+                  name="expiration_year"
+                  as={Form.Control}
+                />
+                <ErrorMessage
+                  name="expiration_year"
+                  component={Form.Text}
+                  className="text-danger"
+                />
+              </Form.Group>
 
-                <Form.Group controlId="cvv" className="payment-form-input">
-                  <Form.Label>CVV</Form.Label>
-                  <Field
-                    type="password"
-                    pattern="\d{3}"
-                    name="cvv"
-                    as={Form.Control}
-                  />
-                  <ErrorMessage
-                    name="cvv"
-                    component={Form.Text}
-                    className="text-danger"
-                  />
-                </Form.Group>
+              <Form.Group controlId="cvv" className="payment-form-input">
+                <Form.Label>CVV</Form.Label>
+                <Field
+                  type="password"
+                  pattern="\d{3}"
+                  name="cvv"
+                  as={Form.Control}
+                />
+                <ErrorMessage
+                  name="cvv"
+                  component={Form.Text}
+                  className="text-danger"
+                />
+              </Form.Group>
 
-                <Button
-                  type="submit"
-                  className="payment-form-button"
-                >
-                  Add Payment
-                </Button>
-              </Form>
-            )}
-          </Formik>
+              <Button type="submit" className="payment-form-button">
+                Add Payment
+              </Button>
+            </Form>
+          )}
+        </Formik>
       )}
 
       {useCardOnRecord && (
@@ -225,14 +221,12 @@ function PaymentCheckout({ onNext }) {
               cvv: "",
             }}
             validationSchema={paymentValidationSchema}
-            onSubmit={handleNext}
-          >
+            onSubmit={handleNext}>
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group
                   controlId="cardholder_name"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Cardholder Name</Form.Label>
                   <Field type="text" name="cardholder_name" as={Form.Control} />
                   <ErrorMessage
@@ -244,8 +238,7 @@ function PaymentCheckout({ onNext }) {
 
                 <Form.Group
                   controlId="card_number"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Card Number</Form.Label>
                   <Field type="text" name="card_number" as={Form.Control} />
                   <ErrorMessage
@@ -257,8 +250,7 @@ function PaymentCheckout({ onNext }) {
 
                 <Form.Group
                   controlId="expiration_month"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Expiration Month</Form.Label>
                   <Field
                     type="number"
@@ -276,8 +268,7 @@ function PaymentCheckout({ onNext }) {
 
                 <Form.Group
                   controlId="expiration_year"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Expiration Year</Form.Label>
                   <Field
                     type="number"
@@ -306,17 +297,13 @@ function PaymentCheckout({ onNext }) {
                     className="text-danger"
                   />
                 </Form.Group>
-                <Button
-                  type="submit"
-                  className="checkout-button mdMB mdMR"
-                >
+                <Button type="submit" className="checkout-button mdMB mdMR">
                   Add Payment
                 </Button>
                 <Button
                   type="submit"
                   className="checkout-button mdMB"
-                  onClick={handleCardonRecord}
-                >
+                  onClick={handleCardonRecord}>
                   Cancel
                 </Button>
               </Form>

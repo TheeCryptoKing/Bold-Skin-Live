@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Row, Container } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -36,7 +36,6 @@ function Login() {
       .catch((err) => console.error(err));
   };
 
-
   return (
     <>
       <Container>
@@ -44,12 +43,13 @@ function Login() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
+            onSubmit={handleSubmit}>
             <Form className="login-form">
               {/* <h3>Login</h3> */}
               <div className="form-group">
-                <label htmlFor="identifier" className="base-text">Username or Email:</label>
+                <label htmlFor="identifier" className="base-text">
+                  Username or Email:
+                </label>
                 <Field
                   type="text"
                   name="identifier"
@@ -63,7 +63,9 @@ function Login() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password" className="base-text">Password:</label>
+                <label htmlFor="password" className="base-text">
+                  Password:
+                </label>
                 <Field
                   type="password"
                   name="password"

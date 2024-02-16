@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Card, Container, Row, Button, Form } from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Context from "./Context";
 
-
 function UserPaymentFrom() {
-// function PaymentDetails() {
+  // function PaymentDetails() {
   const { user } = useContext(Context);
   const [paymentDetails, setPaymentDetails] = useState([]);
   const [showAddPaymentForm, setShowAddPaymentForm] = useState(false);
@@ -26,7 +25,7 @@ function UserPaymentFrom() {
       })
       .then((payments) => {
         setPaymentDetails(payments);
-        console.log(payments)
+        console.log(payments);
       })
       .catch((error) => {
         console.error(error);
@@ -119,7 +118,9 @@ function UserPaymentFrom() {
 
   const paymentValidationSchema = Yup.object().shape({
     cardholder_name: Yup.string().required("Cardholder name is required"),
-    card_number: Yup.string().required("Card number is required").length(16, "Card number must be exactly 16 characters"),
+    card_number: Yup.string()
+      .required("Card number is required")
+      .length(16, "Card number must be exactly 16 characters"),
     expiration_month: Yup.number()
       .required("Expiration month is required")
       .min(1, "Invalid month")
@@ -145,7 +146,7 @@ function UserPaymentFrom() {
   return (
     <Container>
       {paymentDetails.length === 0 ? (
-        <Row >
+        <Row>
           <h6 className="mdMT mdMB">
             No payments on record. Add a payment?
             <Button onClick={handleAddPayment} className=" mdML ">
@@ -165,41 +166,40 @@ function UserPaymentFrom() {
             <Card key={paymentMethod.id} className="col-sm-4">
               <Card.Body>
                 <Card.Title>{paymentMethod.cardholder_name}</Card.Title>
-                {paymentMethod.card_number && typeof paymentMethod.card_number === "string" || "integer" && (
-                  <Card.Text>
-                    Card Number ending in: ****
-                    {paymentMethod.card_number.toSring()}
-                  </Card.Text>
-                )}
+                {(paymentMethod.card_number &&
+                  typeof paymentMethod.card_number === "string") ||
+                  ("integer" && (
+                    <Card.Text>
+                      Card Number ending in: ****
+                      {paymentMethod.card_number.toSring()}
+                    </Card.Text>
+                  ))}
                 <Button
                   className="custom-btn-primary"
-                  onClick={() => handleEditPayment(paymentMethod.id)}
-                >
+                  onClick={() => handleEditPayment(paymentMethod.id)}>
                   Edit
                 </Button>
                 <Button
                   className="custom-btn-primary"
-                  onClick={() => handleDeletePayment(paymentMethod.id)}
-                >
+                  onClick={() => handleDeletePayment(paymentMethod.id)}>
                   Delete
                 </Button>
               </Card.Body>
             </Card>
           ))}
-
         </Row>
       )}
       {showDeleteModal && (
-                <div>
-                  <p>Are you sure you want to delete this payment?</p>
-                  <Button className="custom-btn-primary" onClick={handleConfirmDelete}>
-                    Confirm
-                  </Button>
-                  <Button className="custom-btn-primary" onClick={handleCancelDelete}>
-                    Cancel
-                  </Button>
-                </div>
-              )}
+        <div>
+          <p>Are you sure you want to delete this payment?</p>
+          <Button className="custom-btn-primary" onClick={handleConfirmDelete}>
+            Confirm
+          </Button>
+          <Button className="custom-btn-primary" onClick={handleCancelDelete}>
+            Cancel
+          </Button>
+        </div>
+      )}
       {showAddPaymentForm && (
         <Row>
           <Formik
@@ -211,14 +211,12 @@ function UserPaymentFrom() {
               cvv: "",
             }}
             validationSchema={paymentValidationSchema}
-            onSubmit={handleFormSubmit}
-          >
+            onSubmit={handleFormSubmit}>
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group
                   controlId="cardholder_name"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Cardholder Name</Form.Label>
                   <Field type="text" name="cardholder_name" as={Form.Control} />
                   <ErrorMessage
@@ -230,8 +228,7 @@ function UserPaymentFrom() {
 
                 <Form.Group
                   controlId="card_number"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Card Number</Form.Label>
                   <Field type="text" name="card_number" as={Form.Control} />
                   <ErrorMessage
@@ -243,8 +240,7 @@ function UserPaymentFrom() {
 
                 <Form.Group
                   controlId="expiration_month"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Expiration Month</Form.Label>
                   <Field
                     type="number"
@@ -262,8 +258,7 @@ function UserPaymentFrom() {
 
                 <Form.Group
                   controlId="expiration_year"
-                  className="payment-form-input"
-                >
+                  className="payment-form-input">
                   <Form.Label>Expiration Year</Form.Label>
                   <Field
                     type="number"
@@ -293,10 +288,7 @@ function UserPaymentFrom() {
                   />
                 </Form.Group>
                 <h3></h3>
-                <Button
-                  type="submit"
-                  className="shop-button"
-                >
+                <Button type="submit" className="shop-button">
                   Add Payment
                 </Button>
               </Form>
@@ -309,4 +301,4 @@ function UserPaymentFrom() {
 }
 
 // export default PaymentDetails;
-export default UserPaymentFrom; 
+export default UserPaymentFrom;

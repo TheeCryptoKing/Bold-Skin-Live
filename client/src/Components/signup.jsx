@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Row, Container } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -50,11 +50,12 @@ function Signup() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
+            onSubmit={handleSubmit}>
             <Form className="signup-form">
               <div className="form-group">
-                <label htmlFor="name" className="base-text">Name:</label>
+                <label htmlFor="name" className="base-text">
+                  Name:
+                </label>
                 <Field
                   type="text"
                   name="name"
@@ -68,7 +69,9 @@ function Signup() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email" className="base-text">Email:</label>
+                <label htmlFor="email" className="base-text">
+                  Email:
+                </label>
                 <Field
                   type="text"
                   name="email"
@@ -82,7 +85,9 @@ function Signup() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="username" className="base-text">Username:</label>
+                <label htmlFor="username" className="base-text">
+                  Username:
+                </label>
                 <Field
                   type="text"
                   name="username"
@@ -96,7 +101,9 @@ function Signup() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password" className="base-text">Password:</label>
+                <label htmlFor="password" className="base-text">
+                  Password:
+                </label>
                 <Field
                   type="password"
                   name="password"
@@ -110,7 +117,9 @@ function Signup() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="confirmPassword" className="base-text">Confirm Password:</label>
+                <label htmlFor="confirmPassword" className="base-text">
+                  Confirm Password:
+                </label>
                 <Field
                   type="password"
                   name="confirmPassword"
