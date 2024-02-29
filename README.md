@@ -3,7 +3,7 @@ Eccomerce For Concious and Sustainable Men's BeautyCare
 # Summary
 A Men's Skincare Line, creating products for all shade of Skin and all types of Men. Paving the way to Sustainable, Re-useable recycled, Cruelty-free and Affordable products. 
 # How to run
-<h1><a href="bold-skin.vercel.app"></a>Click Here TO Launch</h1>
+<h1><a href="bold-skin.vercel.app">Click here to launch </a></h1>
 # Stretch Goals
 3d generated AI avatar <br/>
 add to cart modal  <br/>
