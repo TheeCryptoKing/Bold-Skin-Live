@@ -6,7 +6,7 @@ import { TfiUser } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const { user } = useContext(Context);
+  // const { user } = useContext(Context);
   const navigate = useNavigate();
 
   const handleProfile = () => {
