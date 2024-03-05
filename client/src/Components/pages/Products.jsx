@@ -10,7 +10,7 @@ import Accordion from "react-bootstrap/Accordion";
 function Product() {
   // initalized State
   const { id } = useParams();
-  const { user } = useContext(Context);
+  // const { user } = useContext(Context);
   const [product, setProduct] = useState(null);
   const [images, setImages] = useState([]);
   const [quantity, setQuantity] = useState(1);

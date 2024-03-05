@@ -9,6 +9,25 @@
   --onyx:  #31343C;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-container {
+  flex-grow: 1;
+}
 
 
 /* included later on */
@@ -866,3 +885,15 @@ section .container{
   opacity: 1;
 }
 
+.logo{
+  background-image: url(https://raw.githubusercontent.com/TheeCryptoKing/Bold-Skin/main/assets/Products/BoldSkin/BoldSkinLogo.png);
+}
+
+@media (max-width: 480px) {
+  
+  .logo {
+    background-image: url(https://raw.githubusercontent.com/TheeCryptoKing/Bold-Skin/main/assets/Products/BoldSkin/BoldSkinLogoMobile.png);
+  }
+
+  
+}

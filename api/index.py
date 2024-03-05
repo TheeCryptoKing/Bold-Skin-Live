@@ -1,10 +1,10 @@
-from api.config import app, db, api
+from config import app, db, api
 from flask_migrate import Migrate
 from flask_restful import Resource
 from flask import request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import generate_password_hash
-from api.models import (
+from models import (
     User,
     Payment,
     Address,
