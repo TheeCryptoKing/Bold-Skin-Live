@@ -13,10 +13,10 @@ export default function App() {
       <MDBContainer className="p-4">
         <section className="mb-4">
             <a href="https://www.linkedin.com/in/kwame-browne/">
-            <FaLinkedin />
+            <FaLinkedin fab icon="linkedin-in" />
             </a>
             <a href="https://github.com/TheeCryptoKing">
-            <FaGithub />
+            <FaGithub fab icon="github" />
             </a>
         </section>
         <section className="">
