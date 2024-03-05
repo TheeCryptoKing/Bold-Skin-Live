@@ -3,7 +3,7 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_login import UserMixin
 from sqlalchemy.orm import validates
-from api.config import db, bcrypt
+from config import db, bcrypt
 from datetime import datetime
 import re
 
@@ -241,6 +241,7 @@ class Payment(db.Model, SerializerMixin):
     ######################## Main Attributes
     id = db.Column(db.Integer, primary_key=True)
     card_number = db.Column(db.Integer, nullable=False)
+    ###Card number change to strin and incoroprate card_number.isspace() on line 258
     cardholder_name = db.Column(db.String, nullable=False)
     expiration_month = db.Column(db.Integer, nullable=False)
     expiration_year = db.Column(db.Integer, nullable=False)
