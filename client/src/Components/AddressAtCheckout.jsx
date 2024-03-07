@@ -22,7 +22,7 @@ function AddressCheckout({ onNext }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`/api/addresses/${user.id}`)
+      fetch(`/addresses/${user.id}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -42,7 +42,7 @@ function AddressCheckout({ onNext }) {
   }, [user]);
 
   const handleNext = (values) => {
-    fetch(`/api/addresses/${user.id}`, {
+    fetch(`/addresses/${user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     if (user === null) {
-      fetch("/api/check_session").then((res) => {
+      fetch("/check_session").then((res) => {
         if (res.ok) {
           res.json().then((user) => {
             setUser(user);
